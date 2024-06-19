@@ -3,7 +3,11 @@ import { StudentControllers } from './student.controller';
 
 const router = express.Router();
 
-router.post('/create-student', StudentControllers.createStudent);
+router.post(
+  '/create-student',
+  /* validateRequest(createStudentValidationSchema), */
+  StudentControllers.createStudent,
+);
 
 router.get('/', StudentControllers.getAllStudents);
 
