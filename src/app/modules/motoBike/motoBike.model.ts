@@ -12,4 +12,4 @@ const MotoBikeSchema: Schema<TMotoBike> = new Schema({
   brand: { type: String, required: true },
 });
 
-export const BikeModel = model<TMotoBike>('MotoSchema', MotoBikeSchema);
+export const BikeModel = model<TMotoBike>('MotoBookSchema', MotoBikeSchema);
