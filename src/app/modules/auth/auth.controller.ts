@@ -5,10 +5,8 @@ import catchAsync from '../../utils/catchAsync';
 import { UserServices } from './auth.service';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
-  const { user: userData } = req.body;
-
   // Call the service to create the user
-  const result = await UserServices.createUserIntoDB(userData);
+  const result = await UserServices.createUserIntoDB(res, req.body);
 
   // Send response
   sendResponse(res, {
@@ -30,7 +28,6 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User logged in successfully',
-    token: result.token, // Add token to response
     data: result.user,
     // data: result,
   });

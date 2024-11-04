@@ -5,7 +5,7 @@ import { User } from './auth.model';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 
-const createUserIntoDB = async (user: TUser) => {
+const createUserIntoDB = async (res: unknown, user: TUser) => {
   const { email, password } = user;
 
   // Check if the user already exists
@@ -27,14 +27,17 @@ const createUserIntoDB = async (user: TUser) => {
 
   if (signUpUser) {
     // Generate JWT token
-    generateToken(signUpUser._id.toString());
+    generateToken(res, signUpUser._id.toString());
 
     // Return the essential data (exclude password)
     const responseData = {
       _id: signUpUser._id,
       name: signUpUser.name,
       phone: signUpUser.phone,
-      profilePicture: signUpUser.profilePicture,
+      address: signUpUser.address,
+      role: signUpUser.role,
+      createdAt: signUpUser.createdAt,
+      updatedAt: signUpUser.updatedAt,
     };
 
     return responseData;
@@ -50,16 +53,17 @@ const loginUserIntoDB = async (user: TUser) => {
   const isExistsUser = await User.findOne({ email });
 
   if (isExistsUser && (await bcrypt.compare(password, isExistsUser.password))) {
-    const token = generateToken(isExistsUser._id.toString());
+    const token = generateToken(res, isExistsUser._id.toString());
     // Return the essential data (exclude password)
     const responseData = {
       user: {
         _id: isExistsUser._id,
         name: isExistsUser.name,
         phone: isExistsUser.phone,
-        profilePicture: isExistsUser.profilePicture,
+        address: isExistsUser.address,
+        role: isExistsUser.role,
       },
-      token,  // Include the token here
+      token,
     };
 
     return responseData;

@@ -12,11 +12,6 @@ const UserModel = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    phone: {
-      type: String,
-      required: false,
-      unique: true,
-    },
     password: {
       type: String,
       required: true,
@@ -28,19 +23,18 @@ const UserModel = new mongoose.Schema(
           'Password must contain at least one lowercase, one uppercase, and one digit',
       },
     },
-    profilePicture: {
+    phone: {
       type: String,
-      default:
-        'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
+      required: false,
+      unique: true,
     },
-    status: {
+    address: {
       type: String,
-      enum: ['active', 'blocked'],
-      default: 'active',
+      required: false,
     },
     role: {
       type: String,
-      enum: ['user', 'admin', 'super-admin'],
+      enum: ['user', 'admin'],
       required: true,
     },
   },
